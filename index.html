@@ -3,184 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>抽奖中心</title>
+    <title>璨姐24岁生日快乐！</title>
     <style>
-        /* 全局样式 */
-        body {
+        /* 基础样式 */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #B22222;
-            color: #FFFFFF;
-            font-family: 'Kaiti SC', 'PingFang SC', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #010A21;
+            color: #5C2223;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: '字魂仙剑奇侠体', 'PingFang SC', sans-serif;
+        }
+
+        /* 标题区域 */
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        .couplet {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            margin: 10px auto;
+            font-weight: bold;
+        }
+
+        /* 生成区域 */
+        .content {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            overflow: hidden;
+            width: 90%;
         }
 
-        /* 标题栏 */
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 15vw; /* 调整为更小的字体 */
-            margin: 0;
-            font-family: 'Kaiti SC';
-        }
-
-        .header h2 {
-            font-size: 5vw; /* 调整为更小的字体 */
-            margin: 10px 0;
-            font-family: 'PingFang SC';
-            font-weight: bold;
-        }
-
-        .header p {
-            font-size: 4vw; /* 调整为更小的字体 */
-            margin: 0;
-            font-family: 'PingFang SC';
-        }
-
-        /* 生成区域 */
-        .generator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-            width: 90%; /* 限制宽度 */
-        }
-
-        .generator button {
-            background-color: #FFD700;
-            color: #B22222;
-            font-size: 6vw; /* 调整为更大的字体 */
-            padding: 15px 30px;
+        /* 抽奖按钮 */
+        .generate-btn {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #D1D1D1;
             border: none;
-            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
-            width: 100%; /* 按钮宽度占满 */
-            max-width: 300px; /* 限制最大宽度 */
+            margin: 20px 0;
         }
 
-        .generator button:hover {
-            background: linear-gradient(to right, #FFA500, #FFD700);
-        }
-
-        .generator button:active {
-            transform: scale(0.95);
-            transition: transform 0.1s ease;
-        }
-
-        .generator .result-box {
-            background-color: rgba(255, 250, 205, 0.8);
-            border: 2px solid #FFD700;
-            font-size: 5vw; /* 调整为更大的字体 */
-            padding: 15px;
-            margin-top: 20px;
-            width: 100%;
-            text-align: center;
-            border-radius: 8px;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            max-width: 300px; /* 限制最大宽度 */
-        }
-
-        .generator .result-box.show {
-            opacity: 1;
-        }
-
-        /* 底部提示 */
-        .footer {
-            font-size: 4vw; /* 调整为更大的字体 */
-            font-family: 'Kaiti SC';
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* 复制成功提示 */
-        .copy-success {
+        .generate-btn::before {
+            content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 5vw; /* 调整为更大的字体 */
-            color: #FFFFFF;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #70f3ff;
+            border-radius: 50%;
         }
 
-        .copy-success.show {
-            opacity: 1;
+        .generate-btn span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            color: #C04851;
+            white-space: nowrap;
         }
+
+        /* 展示框 */
+        .result-box {
+            background: rgba(238, 162, 164, 0.8);
+            border: 2px solid #C45A65;
+            padding: 15px;
+            margin: 20px 0;
+            width: 80%;
+            text-align: center;
+            font-weight: bold;
+            animation: fadeIn 0.3s;
+        }
+
+        /* 底部提示 */
+        .footer {
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 文字大小 */
+        .main-title { font-size: 14vw; }
+        .couplet { font-size: 14vw; }
+        .sub-title { font-size: 8vw; }
+        .description { font-size: 3vw; }
+        .footer { font-size: 1vw; }
     </style>
 </head>
 <body>
-    <!-- 标题栏 -->
+    <audio id="bgm" loop>
+        <source src="your-music-file.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="header">
-        <h1>抽奖中心</h1>
-        <h2>动动小手赢大奖</h2>
-        <p>听说奖池里有大惊喜哦！</p>
+        <h1 class="main-title">璨姐<br>24岁生日快乐</h1>
+        <div class="couplet">
+            <div>求学一帆风顺不延毕</div>
+            <div>上班钱多事少离家近</div>
+        </div>
+        <p class="sub-title">天天开心，好运常驻！</p>
+        <p class="description">寿星赏个薄面，礼轻情意重</p>
     </div>
 
-    <!-- 生成区域 -->
-    <div class="generator">
-        <button id="generate-btn">点我抽奖！</button>
-        <div id="result-box" class="result-box"></div>
+    <div class="content">
+        <button class="generate-btn" onclick="generatePrize()">
+            <span>点我抽奖！</span>
+        </button>
+        <div class="result-box" id="result"></div>
     </div>
 
-    <!-- 底部提示 -->
     <div class="footer">
-        点击按钮，获取专属礼物。
+        小tips: 做这个抽奖的家伙是个新手，抽奖按钮可以点不止一次!
     </div>
-
-    <!-- 复制成功提示 -->
-    <div id="copy-success" class="copy-success">复制成功</div>
 
     <script>
-        // 奖品文案
+        // 奖品列表
         const prizes = [
-            "感谢抽奖。",
-            "恭喜获得奶茶一杯。",
-            "恭喜获得电影票一张。"
+            "任意音乐月卡",
+            "任意奶茶/咖啡一杯",
+            "定制祝福视频",
+            "任意零食一份"
         ];
 
-        // 生成按钮点击事件
-        document.getElementById('generate-btn').addEventListener('click', function() {
-            // 随机生成奖品文案
+        // 自动播放音乐
+        document.addEventListener('click', () => {
+            document.getElementById('bgm').play();
+        }, { once: true });
+
+        // 生成奖品
+        function generatePrize() {
+            const resultBox = document.getElementById('result');
             const randomIndex = Math.floor(Math.random() * prizes.length);
-            const resultBox = document.getElementById('result-box');
-            resultBox.textContent = prizes[randomIndex];
-            resultBox.classList.add('show');
-
-            // 播放音效
-            const audio = new Audio('birthday-song.mp3'); // 替换为你的生日歌音效文件路径
-            audio.play();
-
-            // 按钮点击动画
-            this.style.transform = 'scale(0.95)';
+            
+            // 按钮动画
+            event.target.style.transform = 'scale(0.95)';
             setTimeout(() => {
-                this.style.transform = 'scale(1)';
+                event.target.style.transform = 'scale(1)';
             }, 100);
-        });
 
-        // 文案展示框点击事件
-        document.getElementById('result-box').addEventListener('click', function() {
-            // 复制文案到剪贴板
-            navigator.clipboard.writeText(this.textContent).then(() => {
-                // 显示复制成功提示
-                const copySuccess = document.getElementById('copy-success');
-                copySuccess.classList.add('show');
-                setTimeout(() => {
-                    copySuccess.classList.remove('show');
-                }, 500);
-            });
-        });
+            // 显示结果
+            resultBox.style.animation = 'none';
+            setTimeout(() => {
+                resultBox.style.animation = 'fadeIn 0.3s';
+                resultBox.textContent = prizes[randomIndex];
+            }, 10);
+        }
     </script>
 </body>
 </html>
