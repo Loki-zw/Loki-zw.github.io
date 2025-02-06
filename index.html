@@ -10,58 +10,54 @@
             background-color: #010A21;
             color: #C04851;
             margin: 0;
-            padding: 10px;
+            padding: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             font-family: '字魂仙剑奇侠体', 'PingFang SC', sans-serif;
             position: relative;
+            overflow: hidden;
         }
 
         /* 自定义字体 */
         @font-face {
             font-family: '字魂仙剑奇侠体';
-            src: url('zihun.ttf') format('truetype');
-            font-display: swap;
+            src: url('您的字体文件路径.ttf');
         }
 
         /* 对联式侧边文本 */
         .side-column {
             position: absolute;
-            top: 30%; /* 调整位置到按钮区域 */
             writing-mode: vertical-lr;
-            font-family: '字魂仙剑奇侠体';
-            font-size: 6vw; /* 调大字体 */
-            letter-spacing: 1vw;
-            font-weight: bold;
-            height: 50vh;
+            font-family: inherit;
+            font-size: 6.5vw;
+            letter-spacing: 2vw;
+            height: 70vh;
             display: flex;
-            align-items: center;
+            justify-content: space-between;
         }
-        .left-column { left: 5%; }
-        .right-column { right: 5%; }
+        .left-column {
+            left: 3%;
+            top: 15%;
+        }
+        .right-column {
+            right: 3%;
+            bottom: 18%;
+        }
 
         /* 主标题区域 */
         .header {
             text-align: center;
             width: 80%;
             margin: 8vh 0 3vh;
-            padding-top: 5vh; /* 增加顶部空间 */
         }
 
         .main-title {
-            font-family: '字魂仙剑奇侠体';
-            font-size: 12vw; /* 调大字号 */
-            line-height: 1.2;
-            margin: 0;
-        }
-
-        /* 新增标题重点样式 */
-        .main-title span {
-            font-size: 1.2em; /* 璨姐二字更大 */
-            display: block;
-            margin-bottom: 1vh;
+            font-size: 12vw;
+            line-height: 1;
+            margin: 5vh 0 0;
+            letter-spacing: 1vw;
         }
 
         /* 副标题 */
@@ -85,34 +81,28 @@
 
         /* 抽奖按钮 */
         .generate-btn {
-            width: 40vw; /* 缩小按钮尺寸 */
+            width: 40vw;
             height: 40vw;
             border-radius: 50%;
-            background: transparent;
+            background: #D1D1D1;
             position: relative;
             border: none;
             margin: 3vh 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: '字魂仙剑奇侠体'; /* 统一字体 */
+            font-size: 6vw;
+            font-family: inherit;
         }
 
         .generate-btn::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3vw solid #70f3ff; /* 调整圆环比例 */
+            width: 70%;
+            height: 70%;
+            border: 3.5vw solid #70f3ff;
             border-radius: 50%;
             box-sizing: border-box;
-        }
-
-        .generate-btn span {
-            font-size: 6vw;
-            color: #C04851;
-            position: relative;
-            z-index: 1;
         }
 
         /* 展示框 */
@@ -129,9 +119,13 @@
 
         /* 底部提示 */
         .footer {
-            font-size: 3.5vw;
-            margin: -2vh 0 3vh; /* 上移一行 */
+            font-size: 4vw;
+            text-align: center;
+            margin: -2vh 0 3vh;
             color: #EEA2A4;
+            white-space: nowrap;
+            width: 100%;
+            padding: 0 5vw;
         }
 
         /* 动画 */
@@ -150,25 +144,21 @@
     </style>
 </head>
 <body>
-    <!-- 修改音乐播放方式 -->
     <audio id="bgm" loop>
         <source src="birthday.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放
     </audio>
 
     <div class="side-column left-column">求学一帆风顺不延毕</div>
     <div class="side-column right-column">上班钱多事少离家近</div>
 
     <div class="header">
-        <h1 class="main-title"><span>璨姐</span>24岁生日快乐</h1>
+        <h1 class="main-title">璨姐<br>24岁生日快乐</h1>
         <p class="subtitle">天天开心，好运常驻！</p>
         <p class="description">寿星赏个薄面，礼轻情意重。</p>
     </div>
 
     <div class="generator">
-        <button class="generate-btn" onclick="generate()">
-            <span>点我抽奖！</span>
-        </button>
+        <button class="generate-btn" onclick="generate()">点我抽奖！</button>
         <div class="result-box" id="result"></div>
     </div>
 
@@ -177,19 +167,18 @@
     </div>
 
     <script>
+        // 音乐播放解决方案
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('bgm');
+            audio.play().catch(() => {});
+        }, { once: true });
+
         const prizes = [
             "任意音乐月卡",
             "任意奶茶/咖啡一杯",
             "定制祝福视频",
             "任意零食一份"
         ];
-
-        // 音乐播放解决方案
-        document.addEventListener('click', function initAudio() {
-            const audio = document.getElementById('bgm');
-            audio.play().catch(() => {});
-            document.removeEventListener('click', initAudio);
-        });
 
         function generate() {
             const btn = document.querySelector('.generate-btn');
@@ -203,6 +192,18 @@
             const randomIndex = Math.floor(Math.random() * prizes.length);
             result.textContent = prizes[randomIndex];
         }
+
+        // 自动调整对联位置
+        window.addEventListener('resize', adjustColumns);
+        function adjustColumns() {
+            const btn = document.querySelector('.generate-btn');
+            const columns = document.querySelectorAll('.side-column');
+            
+            columns.forEach(col => {
+                col.style.bottom = `${btn.offsetTop + btn.offsetHeight/2}px`;
+            });
+        }
+        adjustColumns();
     </script>
 </body>
 </html>
