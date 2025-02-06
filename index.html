@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽奖中心</title>
+    <style>
+        /* 全局样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #B22222;
+            color: #FFFFFF;
+            font-family: 'Kaiti SC', 'PingFang SC', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 标题栏 */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 15vw; /* 调整为更小的字体 */
+            margin: 0;
+            font-family: 'Kaiti SC';
+        }
+
+        .header h2 {
+            font-size: 5vw; /* 调整为更小的字体 */
+            margin: 10px 0;
+            font-family: 'PingFang SC';
+            font-weight: bold;
+        }
+
+        .header p {
+            font-size: 4vw; /* 调整为更小的字体 */
+            margin: 0;
+            font-family: 'PingFang SC';
+        }
+
+        /* 生成区域 */
+        .generator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 90%; /* 限制宽度 */
+        }
+
+        .generator button {
+            background-color: #FFD700;
+            color: #B22222;
+            font-size: 6vw; /* 调整为更大的字体 */
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            width: 100%; /* 按钮宽度占满 */
+            max-width: 300px; /* 限制最大宽度 */
+        }
+
+        .generator button:hover {
+            background: linear-gradient(to right, #FFA500, #FFD700);
+        }
+
+        .generator button:active {
+            transform: scale(0.95);
+            transition: transform 0.1s ease;
+        }
+
+        .generator .result-box {
+            background-color: rgba(255, 250, 205, 0.8);
+            border: 2px solid #FFD700;
+            font-size: 5vw; /* 调整为更大的字体 */
+            padding: 15px;
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            max-width: 300px; /* 限制最大宽度 */
+        }
+
+        .generator .result-box.show {
+            opacity: 1;
+        }
+
+        /* 底部提示 */
+        .footer {
+            font-size: 4vw; /* 调整为更大的字体 */
+            font-family: 'Kaiti SC';
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* 复制成功提示 */
+        .copy-success {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5vw; /* 调整为更大的字体 */
+            color: #FFFFFF;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .copy-success.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 标题栏 -->
+    <div class="header">
+        <h1>抽奖中心</h1>
+        <h2>动动小手赢大奖</h2>
+        <p>听说奖池里有大惊喜哦！</p>
+    </div>
+
+    <!-- 生成区域 -->
+    <div class="generator">
+        <button id="generate-btn">点我抽奖！</button>
+        <div id="result-box" class="result-box"></div>
+    </div>
+
+    <!-- 底部提示 -->
+    <div class="footer">
+        点击按钮，获取专属礼物。
+    </div>
+
+    <!-- 复制成功提示 -->
+    <div id="copy-success" class="copy-success">复制成功</div>
+
+    <script>
+        // 奖品文案
+        const prizes = [
+            "感谢抽奖。",
+            "恭喜获得奶茶一杯。",
+            "恭喜获得电影票一张。"
+        ];
+
+        // 生成按钮点击事件
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            // 随机生成奖品文案
+            const randomIndex = Math.floor(Math.random() * prizes.length);
+            const resultBox = document.getElementById('result-box');
+            resultBox.textContent = prizes[randomIndex];
+            resultBox.classList.add('show');
+
+            // 播放音效
+            const audio = new Audio('birthday-song.mp3'); // 替换为你的生日歌音效文件路径
+            audio.play();
+
+            // 按钮点击动画
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 100);
+        });
+
+        // 文案展示框点击事件
+        document.getElementById('result-box').addEventListener('click', function() {
+            // 复制文案到剪贴板
+            navigator.clipboard.writeText(this.textContent).then(() => {
+                // 显示复制成功提示
+                const copySuccess = document.getElementById('copy-success');
+                copySuccess.classList.add('show');
+                setTimeout(() => {
+                    copySuccess.classList.remove('show');
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
