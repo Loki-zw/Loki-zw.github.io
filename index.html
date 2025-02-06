@@ -3,100 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>璨姐24岁生日快乐！</title>
+    <title>璨姐生日快乐</title>
     <style>
         /* 基础样式 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             background-color: #010A21;
-            color: #5C2223;
+            color: #C04851;
+            margin: 0;
+            padding: 10px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-family: '字魂仙剑奇侠体', 'PingFang SC', sans-serif;
+            font-family: 'PingFang SC', sans-serif;
+            position: relative;
         }
 
-        /* 标题区域 */
+        /* 自定义字体 */
+        @font-face {
+            font-family: '字魂仙剑奇侠体';
+            src: url('您的字体文件路径.ttf');
+        }
+
+        /* 对联式侧边文本 */
+        .side-column {
+            position: absolute;
+            top: 5%;
+            writing-mode: vertical-lr;
+            font-family: '字魂仙剑奇侠体', 'PingFang SC';
+            font-size: 5vw;
+            letter-spacing: 1vw;
+            font-weight: bold;
+        }
+        .left-column { left: 5%; }
+        .right-column { right: 5%; }
+
+        /* 主标题区域 */
         .header {
             text-align: center;
-            padding: 20px 0;
-            width: 100%;
+            width: 80%;
+            margin: 8vh 0 3vh;
         }
 
-        .couplet {
-            display: flex;
-            justify-content: space-between;
-            width: 90%;
-            margin: 10px auto;
+        .main-title {
+            font-family: '字魂仙剑奇侠体', 'Kaiti SC', cursive;
+            font-size: 10vw;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        /* 副标题 */
+        .subtitle {
+            font-family: '字魂仙剑奇侠体', 'PingFang SC';
+            font-size: 6vw;
             font-weight: bold;
+            margin: 2vh 0;
         }
 
         /* 生成区域 */
-        .content {
-            flex: 1;
+        .generator {
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            width: 90%;
         }
 
         /* 抽奖按钮 */
         .generate-btn {
-            position: relative;
-            width: 30px;
-            height: 30px;
+            width: 50vw;
+            height: 50vw;
             border-radius: 50%;
             background: #D1D1D1;
+            position: relative;
             border: none;
-            cursor: pointer;
-            margin: 20px 0;
+            margin: 3vh 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 6vw;
         }
 
         .generate-btn::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 24px;
-            height: 24px;
-            border: 3px solid #70f3ff;
+            width: 80%;
+            height: 80%;
+            border: 3vw solid #70f3ff;
             border-radius: 50%;
-        }
-
-        .generate-btn span {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 12px;
-            color: #C04851;
-            white-space: nowrap;
+            box-sizing: border-box;
         }
 
         /* 展示框 */
         .result-box {
             background: rgba(238, 162, 164, 0.8);
             border: 2px solid #C45A65;
-            padding: 15px;
-            margin: 20px 0;
-            width: 80%;
+            padding: 3vw;
+            width: 80vw;
             text-align: center;
+            font-family: '字魂仙剑奇侠体', 'PingFang SC';
+            font-size: 6vw;
             font-weight: bold;
+            margin: 3vh 0;
             animation: fadeIn 0.3s;
         }
 
         /* 底部提示 */
         .footer {
-            padding: 20px;
+            font-family: '字魂仙剑奇侠体', 'Kaiti SC';
+            font-size: 4vw;
             text-align: center;
+            margin: 3vh 0;
+            color: #EEA2A4;
         }
 
         /* 动画 */
@@ -105,33 +122,31 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 文字大小 */
-        .main-title { font-size: 14vw; }
-        .couplet { font-size: 14vw; }
-        .sub-title { font-size: 8vw; }
-        .description { font-size: 3vw; }
-        .footer { font-size: 1vw; }
+        .click-animation {
+            animation: click 0.1s;
+        }
+
+        @keyframes click {
+            50% { transform: scale(0.95); }
+        }
     </style>
 </head>
 <body>
-    <audio id="bgm" loop>
-        <source src="your-music-file.mp3" type="audio/mpeg">
+    <audio autoplay loop>
+        <source src="您的生日歌文件.mp3" type="audio/mpeg">
     </audio>
+
+    <div class="side-column left-column">求学一帆风顺不延毕</div>
+    <div class="side-column right-column">上班钱多事少离家近</div>
 
     <div class="header">
         <h1 class="main-title">璨姐<br>24岁生日快乐</h1>
-        <div class="couplet">
-            <div>求学一帆风顺不延毕</div>
-            <div>上班钱多事少离家近</div>
-        </div>
-        <p class="sub-title">天天开心，好运常驻！</p>
-        <p class="description">寿星赏个薄面，礼轻情意重</p>
+        <p class="subtitle">天天开心，好运常驻！</p>
+        <p class="description">寿星赏个薄面，礼轻情意重。</p>
     </div>
 
-    <div class="content">
-        <button class="generate-btn" onclick="generatePrize()">
-            <span>点我抽奖！</span>
-        </button>
+    <div class="generator">
+        <button class="generate-btn" onclick="generate()">点我抽奖！</button>
         <div class="result-box" id="result"></div>
     </div>
 
@@ -140,7 +155,6 @@
     </div>
 
     <script>
-        // 奖品列表
         const prizes = [
             "任意音乐月卡",
             "任意奶茶/咖啡一杯",
@@ -148,28 +162,17 @@
             "任意零食一份"
         ];
 
-        // 自动播放音乐
-        document.addEventListener('click', () => {
-            document.getElementById('bgm').play();
-        }, { once: true });
-
-        // 生成奖品
-        function generatePrize() {
-            const resultBox = document.getElementById('result');
-            const randomIndex = Math.floor(Math.random() * prizes.length);
+        function generate() {
+            const btn = document.querySelector('.generate-btn');
+            const result = document.getElementById('result');
             
             // 按钮动画
-            event.target.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                event.target.style.transform = 'scale(1)';
-            }, 100);
+            btn.classList.add('click-animation');
+            setTimeout(() => btn.classList.remove('click-animation'), 100);
 
-            // 显示结果
-            resultBox.style.animation = 'none';
-            setTimeout(() => {
-                resultBox.style.animation = 'fadeIn 0.3s';
-                resultBox.textContent = prizes[randomIndex];
-            }, 10);
+            // 随机结果
+            const randomIndex = Math.floor(Math.random() * prizes.length);
+            result.textContent = prizes[randomIndex];
         }
     </script>
 </body>
