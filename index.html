@@ -58,27 +58,25 @@
             pointer-events: none;
         }
 
-        /* 对联样式 */
+        /* 传统竖排对联样式 */
         .couplet {
-            writing-mode: vertical-rl;
+            writing-mode: vertical-rl; /* 从右向左竖排 */
+            text-orientation: upright; /* 保持文字正立 */
             font-size: 5vh;
-            letter-spacing: 1vh;
-            line-height: 1.5;
+            letter-spacing: 1.5vh;
+            line-height: 1.8;
             font-weight: bold;
+            height: 100%;
+            padding: 0 3%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: 100%;
-            padding: 0 2%;
         }
         .couplet.left {
-            margin-left: -5%;
+            margin-right: auto;  /* 右联靠右 */
         }
         .couplet.right {
-            margin-right: -5%;
-        }
-        .couplet span {
-            display: block;
+            margin-left: auto;  /* 左联靠左 */
         }
 
         /* 主标题 */
