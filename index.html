@@ -15,164 +15,134 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-family: '字魂仙剑奇侠体', 'PingFang SC', sans-serif;
+            font-family: 'zihun', 'PingFang SC', sans-serif;
             position: relative;
             overflow: hidden;
         }
 
         /* 自定义字体 */
         @font-face {
-            font-family: '字魂仙剑奇侠体';
-            src: url('您的字体文件路径.ttf');
+            font-family: 'zihun';
+            src: url('zihun.ttf');
         }
 
-        /* 对联式侧边文本 */
-        .side-column {
+        /* 对联 */
+        .couplet {
             position: absolute;
             writing-mode: vertical-lr;
-            font-family: inherit;
-            font-size: 6.5vw;
-            letter-spacing: 2vw;
-            height: 70vh;
+            font-size: 8.5vw;
+            letter-spacing: 3vw;
+            height: 75vh;
             display: flex;
-            justify-content: space-between;
+            font-weight: bold;
         }
-        .left-column {
+        .left {
             left: 3%;
-            top: 15%;
+            top: 12%;
         }
-        .right-column {
+        .right {
             right: 3%;
-            bottom: 18%;
+            bottom: 12%;
         }
 
-        /* 主标题区域 */
-        .header {
-            text-align: center;
-            width: 80%;
-            margin: 8vh 0 3vh;
-        }
-
+        /* 主标题 */
         .main-title {
-            font-size: 12vw;
+            font-size: 14vw;
             line-height: 1;
-            margin: 5vh 0 0;
-            letter-spacing: 1vw;
+            margin: 8vh 0 2vh;
+            text-align: center;
+        }
+        .age {
+            font-size: 7vw;
+            white-space: nowrap;
         }
 
-        /* 副标题 */
-        .subtitle {
-            font-size: 7vw;
+        /* 描述文字 */
+        .description {
+            font-size: 5vw;
             margin: 2vh 0;
         }
 
-        .description {
-            font-size: 4vw;
-            margin: 1vh 0;
-        }
-
-        /* 生成区域 */
-        .generator {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
         /* 抽奖按钮 */
-        .generate-btn {
-            width: 40vw;
-            height: 40vw;
+        .lottery-btn {
+            width: 50vw;
+            height: 50vw;
             border-radius: 50%;
-            background: #D1D1D1;
+            background: #70f3ff;
             position: relative;
             border: none;
-            margin: 3vh 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 6vw;
-            font-family: inherit;
+            margin: 4vh 0;
         }
-
-        .generate-btn::before {
+        .lottery-btn::before {
             content: '';
             position: absolute;
-            width: 70%;
-            height: 70%;
-            border: 3.5vw solid #70f3ff;
+            width: 90%;
+            height: 90%;
+            background: #D1D1D1;
             border-radius: 50%;
-            box-sizing: border-box;
+            top: 5%;
+            left: 5%;
+        }
+        .btn-text {
+            position: relative;
+            font-size: 7vw;
+            z-index: 1;
+            white-space: nowrap;
         }
 
-        /* 展示框 */
+        /* 结果框 */
         .result-box {
             background: rgba(238, 162, 164, 0.8);
             border: 2px solid #C45A65;
             padding: 3vw;
             width: 80vw;
-            text-align: center;
+            margin: 2vh 0 8vh;
             font-size: 6vw;
-            margin: 3vh 0;
-            animation: fadeIn 0.3s;
-        }
-
-        /* 底部提示 */
-        .footer {
-            font-size: 4vw;
             text-align: center;
-            margin: -2vh 0 3vh;
+        }
+
+        /* 提示 */
+        .tips {
+            font-size: 4vw;
             color: #EEA2A4;
-            white-space: nowrap;
-            width: 100%;
-            padding: 0 5vw;
-        }
-
-        /* 动画 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .click-animation {
-            animation: click 0.1s;
-        }
-
-        @keyframes click {
-            50% { transform: scale(0.95); }
+            text-align: center;
+            margin: -6vh 0 3vh;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
-    <audio id="bgm" loop>
+    <audio id="music">
         <source src="birthday.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="side-column left-column">求学一帆风顺不延毕</div>
-    <div class="side-column right-column">上班钱多事少离家近</div>
+    <div class="couplet left">求学一帆风顺不延毕</div>
+    <div class="couplet right">上班钱多事少离家近</div>
 
-    <div class="header">
-        <h1 class="main-title">璨姐<br>24岁生日快乐</h1>
-        <p class="subtitle">天天开心，好运常驻！</p>
-        <p class="description">寿星赏个薄面，礼轻情意重。</p>
+    <div class="main-title">
+        <div>璨姐</div>
+        <div class="age">24岁生日快乐</div>
     </div>
 
-    <div class="generator">
-        <button class="generate-btn" onclick="generate()">点我抽奖！</button>
-        <div class="result-box" id="result"></div>
-    </div>
+    <p class="description">寿星赏个薄面，礼轻情意重</p>
 
-    <div class="footer">
-        小tips: 做这个抽奖的家伙是个新手，抽奖按钮可以点不止一次!
-    </div>
+    <button class="lottery-btn" onclick="playMusic();generate()">
+        <span class="btn-text">点我抽奖！</span>
+    </button>
+
+    <div class="result-box" id="result"></div>
+
+    <p class="tips">小tips:<br>做这个抽奖的家伙是个新手，<br>抽奖按钮可以点不止一次!</p>
 
     <script>
-        // 音乐播放解决方案
-        document.addEventListener('click', function() {
-            const audio = document.getElementById('bgm');
-            audio.play().catch(() => {});
-        }, { once: true });
+        // 音乐播放控制
+        function playMusic() {
+            const music = document.getElementById('music');
+            music.loop = true;
+            music.play().catch(() => {});
+        }
 
+        // 抽奖功能
         const prizes = [
             "任意音乐月卡",
             "任意奶茶/咖啡一杯",
@@ -181,29 +151,18 @@
         ];
 
         function generate() {
-            const btn = document.querySelector('.generate-btn');
             const result = document.getElementById('result');
-            
-            // 按钮动画
-            btn.classList.add('click-animation');
-            setTimeout(() => btn.classList.remove('click-animation'), 100);
-
-            // 随机结果
-            const randomIndex = Math.floor(Math.random() * prizes.length);
-            result.textContent = prizes[randomIndex];
+            result.textContent = prizes[Math.floor(Math.random()*4)];
+            result.style.animation = 'fadeIn 0.3s';
         }
 
-        // 自动调整对联位置
-        window.addEventListener('resize', adjustColumns);
-        function adjustColumns() {
-            const btn = document.querySelector('.generate-btn');
-            const columns = document.querySelectorAll('.side-column');
-            
-            columns.forEach(col => {
-                col.style.bottom = `${btn.offsetTop + btn.offsetHeight/2}px`;
+        // 自动调整布局
+        window.addEventListener('resize', () => {
+            const couplets = document.querySelectorAll('.couplet');
+            couplets.forEach(c => {
+                c.style.height = `${window.innerHeight * 0.7}px`;
             });
-        }
-        adjustColumns();
+        });
     </script>
 </body>
 </html>
