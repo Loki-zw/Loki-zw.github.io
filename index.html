@@ -17,7 +17,6 @@
             align-items: center;
             font-family: 'zihun', 'PingFang SC', sans-serif;
             position: relative;
-            overflow: hidden;
         }
 
         /* 自定义字体 */
@@ -30,11 +29,12 @@
         .couplet {
             position: absolute;
             writing-mode: vertical-lr;
-            font-size: 8.5vw;
-            letter-spacing: 3vw;
+            font-size: 10.5vw; /* 增大2个单位 */
+            letter-spacing: 4vw; /* 增加10磅间距 */
             height: 75vh;
             display: flex;
             font-weight: bold;
+            z-index: 1;
         }
         .left {
             left: 3%;
@@ -43,17 +43,18 @@
         .right {
             right: 3%;
             bottom: 12%;
+            transform: translateY(15%); /* 右侧对齐修正 */
         }
 
         /* 主标题 */
         .main-title {
-            font-size: 14vw;
+            font-size: 16vw; /* 增大1个单位 */
             line-height: 1;
             margin: 8vh 0 2vh;
             text-align: center;
         }
         .age {
-            font-size: 7vw;
+            font-size: 8vw; /* 同步增大 */
             white-space: nowrap;
         }
 
@@ -65,13 +66,13 @@
 
         /* 抽奖按钮 */
         .lottery-btn {
-            width: 50vw;
-            height: 50vw;
+            width: 45vw; /* 缩小5px */
+            height: 45vw;
             border-radius: 50%;
             background: #70f3ff;
             position: relative;
             border: none;
-            margin: 4vh 0;
+            margin: 4vh 0 8vh; /* 增加下方间距 */
         }
         .lottery-btn::before {
             content: '';
@@ -96,9 +97,10 @@
             border: 2px solid #C45A65;
             padding: 3vw;
             width: 80vw;
-            margin: 2vh 0 8vh;
+            margin: 2vh 0 12vh; /* 下移2个单位 */
             font-size: 6vw;
             text-align: center;
+            position: relative;
         }
 
         /* 提示 */
@@ -106,8 +108,10 @@
             font-size: 4vw;
             color: #EEA2A4;
             text-align: center;
-            margin: -6vh 0 3vh;
+            margin: -4vh 0 3vh; /* 调整位置 */
             line-height: 1.5;
+            position: relative;
+            top: 8vw; /* 上移3vw */
         }
     </style>
 </head>
@@ -156,12 +160,10 @@
             result.style.animation = 'fadeIn 0.3s';
         }
 
-        // 自动调整布局
-        window.addEventListener('resize', () => {
-            const couplets = document.querySelectorAll('.couplet');
-            couplets.forEach(c => {
-                c.style.height = `${window.innerHeight * 0.7}px`;
-            });
+        // 初始布局调整
+        window.addEventListener('load', () => {
+            const resultBox = document.querySelector('.result-box');
+            resultBox.style.marginBottom = `${document.querySelector('.couplet').offsetHeight * 0.2}px`;
         });
     </script>
 </body>
