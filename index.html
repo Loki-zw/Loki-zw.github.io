@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>璨姐生日快乐</title>
     <style>
         /* 基础样式 */
@@ -26,75 +26,80 @@
             src: url('zihun.ttf');
         }
 
-        /* 左右对联容器 */
-        .couplet-column {
-            position: absolute;
-            top: 10%;
-            height: 75%;
-            width: 14%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            z-index: 1;
-        }
-        .left-column {
-            left: 2%;
-            align-items: flex-start;
-        }
-        .right-column {
-            right: 2%;
-            align-items: flex-end;
-        }
-
-        /* 每个文字块（iPhone适配） */
-        .couplet-word {
-            writing-mode: vertical-lr;
-            font-size: 4.2vw; /* 改用视窗宽度单位 */
-            letter-spacing: 0.5vh;
-            line-height: 1.3;
-            white-space: nowrap;
-            font-weight: bold;
-            transform: scale(0.9); /* 轻微缩小 */
-        }
-
-        /* 主内容区（适配全面屏） */
-        .main-content {
+        /* 核心内容容器 */
+        .hero-section {
+            flex: 1;
             width: 100%;
-            max-width: 76%;
-            margin: 6vh auto 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            padding: 5vh 0;
+        }
+
+        /* 主标题组 */
+        .title-group {
+            position: relative;
+            width: 100%;
+            margin: 0 0 8vh;
+        }
+
+        /* 对联样式 */
+        .couplet {
+            position: absolute;
+            writing-mode: vertical-lr;
+            font-size: 6.5vh;
+            letter-spacing: 1.5vh;
+            line-height: 1.3;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+        }
+        .couplet-left {
+            left: 8%;
+            animation: float 3s ease-in-out infinite;
+        }
+        .couplet-right {
+            right: 8%;
+            animation: float 3s ease-in-out infinite 0.5s;
+        }
+
+        /* 主标题 */
+        .main-title {
+            font-size: 10vh;
+            text-align: center;
+            line-height: 1;
+            margin: 0 auto;
+            width: 60%;
+            position: relative;
             z-index: 2;
         }
-
-        /* 主标题（iPhone适配） */
-        .main-title {
-            font-size: 7.5vw;
-            text-align: center;
-            line-height: 1.1;
-            margin-bottom: 2vh;
-        }
         .age {
-            font-size: 4vw;
-            white-space: nowrap;
+            font-size: 5.5vh;
+            display: block;
+            margin-top: 1.5vh;
         }
 
-        /* 描述文字 */
-        .description {
-            font-size: 3.2vw;
-            margin: 1.5vh 0;
+        /* 功能区域 */
+        .function-area {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -3vh;
         }
 
-        /* 抽奖按钮（按iPhone手指触控优化） */
+        /* 抽奖按钮 */
         .lottery-btn {
-            width: 35vw;
-            height: 35vw;
+            width: 25vh;
+            height: 25vh;
             border-radius: 50%;
             background: #70f3ff;
             position: relative;
             border: none;
-            margin: 3vh 0;
+            margin: 2vh 0;
+            opacity: 0.9;
+            transition: transform 0.3s;
         }
         .lottery-btn::before {
             content: '';
@@ -108,7 +113,7 @@
         }
         .btn-text {
             position: relative;
-            font-size: 4vw;
+            font-size: 3.5vh;
             z-index: 1;
         }
 
@@ -117,38 +122,29 @@
             background: rgba(238, 162, 164, 0.8);
             border: 2px solid #C45A65;
             padding: 1.5vh;
-            width: 80%;
-            margin: 2vh 0 3vh;
-            font-size: 3.8vw;
+            width: 65%;
+            margin: 1vh 0 0;
+            font-size: 3.2vh;
             text-align: center;
+            border-radius: 1.5vh;
         }
 
-        /* 提示信息（精确适配底部） */
+        /* 提示信息 */
         .tips {
-            font-size: 2.5vw;
+            font-size: 2.2vh;
             color: #EEA2A4;
             text-align: center;
             line-height: 1.4;
             width: 80%;
-            margin: 0 auto 3vh;
-            position: absolute;
-            bottom: 2vh;
+            margin: 1.5vh 0 3vh;
+            padding-top: 1vh;
+            border-top: 1px solid rgba(238,162,164,0.3);
         }
 
-        /* iPhone13 Pro专属适配 */
-        @media only screen and (device-width: 390px) and (device-height: 844px) {
-            .couplet-word {
-                font-size: 3.8vw;
-                letter-spacing: 0.3vh;
-            }
-            .main-title {
-                font-size: 7vw;
-                margin-bottom: 1.5vh;
-            }
-            .lottery-btn {
-                width: 33vw;
-                height: 33vw;
-            }
+        /* 动画 */
+        @keyframes float {
+            0%, 100% { transform: translateY(-50%); }
+            50% { transform: translateY(-53%); }
         }
     </style>
 </head>
@@ -157,61 +153,38 @@
         <source src="birthday.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 左侧对联 -->
-    <div class="couplet-column left-column">
-        <div class="couplet-word">求</div>
-        <div class="couplet-word">学</div>
-        <div class="couplet-word">一</div>
-        <div class="couplet-word">帆</div>
-        <div class="couplet-word">风</div>
-        <div class="couplet-word">顺</div>
-        <div class="couplet-word">不</div>
-        <div class="couplet-word">延</div>
-        <div class="couplet-word">毕</div>
-    </div>
-
-    <!-- 右侧对联 -->
-    <div class="couplet-column right-column">
-        <div class="couplet-word">上</div>
-        <div class="couplet-word">班</div>
-        <div class="couplet-word">钱</div>
-        <div class="couplet-word">多</div>
-        <div class="couplet-word">事</div>
-        <div class="couplet-word">少</div>
-        <div class="couplet-word">离</div>
-        <div class="couplet-word">家</div>
-        <div class="couplet-word">近</div>
-    </div>
-
-    <!-- 主内容 -->
-    <div class="main-content">
-        <div class="main-title">
-            <div>璨姐</div>
-            <div class="age">24岁生日快乐</div>
+    <div class="hero-section">
+        <!-- 核心内容 -->
+        <div class="title-group">
+            <div class="couplet couplet-left">求学一帆风顺不延毕</div>
+            <div class="main-title">
+                璨姐
+                <span class="age">24岁生日快乐</span>
+            </div>
+            <div class="couplet couplet-right">上班钱多事少离家近</div>
         </div>
 
-        <p class="description">寿星赏个薄面，礼轻情意重</p>
-
-        <button class="lottery-btn" onclick="playMusic();generate()">
-            <span class="btn-text">点我抽奖！</span>
-        </button>
-
-        <div class="result-box" id="result"></div>
-
-        <p class="tips">小tips:<br>做这个抽奖的家伙是个新手，<br>抽奖按钮可以点不止一次!</p>
+        <!-- 功能区域 -->
+        <div class="function-area">
+            <p class="description">寿星赏个薄面，礼轻情意重</p>
+            <button class="lottery-btn" onclick="playMusic();generate()">
+                <span class="btn-text">点我抽奖！</span>
+            </button>
+            <div class="result-box" id="result"></div>
+            <p class="tips">小tips:<br>做这个抽奖的家伙是个新手，<br>抽奖按钮可以点不止一次!</p>
+        </div>
     </div>
 
     <script>
-        // 音乐播放控制（兼容iOS）
+        // 音乐播放控制
         function playMusic() {
             const music = document.getElementById('music');
             music.loop = true;
             music.play().catch(() => {
-                // iOS需要用户交互后播放
                 document.body.addEventListener('touchstart', function init() {
                     music.play();
                     document.body.removeEventListener('touchstart', init);
-                });
+                }, { once: true });
             });
         }
 
@@ -226,26 +199,26 @@
         function generate() {
             const result = document.getElementById('result');
             result.textContent = prizes[Math.floor(Math.random()*4)];
+            result.style.animation = 'fadeIn 0.3s';
         }
 
-        // 智能布局调整
-        function smartLayout() {
-            const screenHeight = window.innerHeight;
-            const contentHeight = document.querySelector('.main-content').scrollHeight;
+        // 自动适配
+        function adjustLayout() {
+            const hero = document.querySelector('.hero-section');
+            const title = document.querySelector('.main-title');
             
-            // 自动调整对联高度
-            document.querySelectorAll('.couplet-column').forEach(column => {
-                column.style.height = `${Math.min(contentHeight*1.1, screenHeight*0.75)}px`;
-            });
-
-            // 动态字体缩放
-            if (screenHeight < 800) {
-                document.documentElement.style.fontSize = '14px';
+            // 动态字号调整
+            if (window.innerHeight < 700) {
+                title.style.fontSize = '8vh';
+                document.querySelector('.age').style.fontSize = '4.5vh';
+                document.querySelectorAll('.couplet').forEach(c => {
+                    c.style.fontSize = '5.5vh';
+                });
             }
         }
 
-        window.addEventListener('load', smartLayout);
-        window.addEventListener('resize', smartLayout);
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
     </script>
 </body>
 </html>
