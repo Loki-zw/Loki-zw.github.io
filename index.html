@@ -42,26 +42,37 @@
             position: relative;
             width: 100%;
             margin: 0 0 8vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 对联容器 */
+        .couplet-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
         }
 
         /* 对联样式 */
         .couplet {
-            position: absolute;
             writing-mode: vertical-lr;
             font-size: 6.5vh;
             letter-spacing: 1.5vh;
             line-height: 1.3;
-            top: 50%;
-            transform: translateY(-50%);
             font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding: 0 5%;
         }
-        .couplet-left {
-            left: 8%;
-            animation: float 3s ease-in-out infinite;
-        }
-        .couplet-right {
-            right: 8%;
-            animation: float 3s ease-in-out infinite 0.5s;
+        .couplet span {
+            display: block;
         }
 
         /* 主标题 */
@@ -140,12 +151,6 @@
             padding-top: 1vh;
             border-top: 1px solid rgba(238,162,164,0.3);
         }
-
-        /* 动画 */
-        @keyframes float {
-            0%, 100% { transform: translateY(-50%); }
-            50% { transform: translateY(-53%); }
-        }
     </style>
 </head>
 <body>
@@ -156,12 +161,34 @@
     <div class="hero-section">
         <!-- 核心内容 -->
         <div class="title-group">
-            <div class="couplet couplet-left">求学一帆风顺不延毕</div>
+            <div class="couplet-container">
+                <div class="couplet left">
+                    <span>求</span>
+                    <span>学</span>
+                    <span>一</span>
+                    <span>帆</span>
+                    <span>风</span>
+                    <span>顺</span>
+                    <span>不</span>
+                    <span>延</span>
+                    <span>毕</span>
+                </div>
+                <div class="couplet right">
+                    <span>上</span>
+                    <span>班</span>
+                    <span>钱</span>
+                    <span>多</span>
+                    <span>事</span>
+                    <span>少</span>
+                    <span>离</span>
+                    <span>家</span>
+                    <span>近</span>
+                </div>
+            </div>
             <div class="main-title">
                 璨姐
                 <span class="age">24岁生日快乐</span>
             </div>
-            <div class="couplet couplet-right">上班钱多事少离家近</div>
         </div>
 
         <!-- 功能区域 -->
@@ -202,23 +229,19 @@
             result.style.animation = 'fadeIn 0.3s';
         }
 
-        // 自动适配
-        function adjustLayout() {
-            const hero = document.querySelector('.hero-section');
-            const title = document.querySelector('.main-title');
+        // 对联高度调整
+        function adjustCoupletHeight() {
+            const mainTitle = document.querySelector('.main-title');
+            const couplets = document.querySelectorAll('.couplet');
+            const titleHeight = mainTitle.offsetHeight;
             
-            // 动态字号调整
-            if (window.innerHeight < 700) {
-                title.style.fontSize = '8vh';
-                document.querySelector('.age').style.fontSize = '4.5vh';
-                document.querySelectorAll('.couplet').forEach(c => {
-                    c.style.fontSize = '5.5vh';
-                });
-            }
+            couplets.forEach(couplet => {
+                couplet.style.height = `${titleHeight}px`;
+            });
         }
 
-        window.addEventListener('load', adjustLayout);
-        window.addEventListener('resize', adjustLayout);
+        window.addEventListener('load', adjustCoupletHeight);
+        window.addEventListener('resize', adjustCoupletHeight);
     </script>
 </body>
 </html>
