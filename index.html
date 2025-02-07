@@ -29,32 +29,30 @@
         .couplet {
             position: absolute;
             writing-mode: vertical-lr;
-            font-size: 10.5vw; /* 增大2个单位 */
-            letter-spacing: 4vw; /* 增加10磅间距 */
+            font-size: 10.5vw;
+            letter-spacing: 4vw;
             height: 75vh;
             display: flex;
             font-weight: bold;
             z-index: 1;
+            top: 15%;
         }
         .left {
-            left: 3%;
-            top: 12%;
+            left: 5%;
         }
         .right {
-            right: 3%;
-            bottom: 12%;
-            transform: translateY(15%); /* 右侧对齐修正 */
+            right: 5%;
         }
 
         /* 主标题 */
         .main-title {
-            font-size: 16vw; /* 增大1个单位 */
+            font-size: 16vw;
             line-height: 1;
-            margin: 8vh 0 2vh;
+            margin: 10vh 0 3vh;
             text-align: center;
         }
         .age {
-            font-size: 8vw; /* 同步增大 */
+            font-size: 8vw;
             white-space: nowrap;
         }
 
@@ -66,13 +64,13 @@
 
         /* 抽奖按钮 */
         .lottery-btn {
-            width: 45vw; /* 缩小5px */
+            width: 45vw;
             height: 45vw;
             border-radius: 50%;
             background: #70f3ff;
             position: relative;
             border: none;
-            margin: 4vh 0 8vh; /* 增加下方间距 */
+            margin: 4vh 0;
         }
         .lottery-btn::before {
             content: '';
@@ -97,10 +95,11 @@
             border: 2px solid #C45A65;
             padding: 3vw;
             width: 80vw;
-            margin: 2vh 0 12vh; /* 下移2个单位 */
+            margin: 2vh 0;
             font-size: 6vw;
             text-align: center;
             position: relative;
+            top: 5vh;
         }
 
         /* 提示 */
@@ -108,10 +107,16 @@
             font-size: 4vw;
             color: #EEA2A4;
             text-align: center;
-            margin: -4vh 0 3vh; /* 调整位置 */
+            margin: 3vh 0;
             line-height: 1.5;
             position: relative;
-            top: 8vw; /* 上移3vw */
+            top: 6vh;
+            width: 80%;
+        }
+
+        /* 底部留白 */
+        .spacer {
+            flex: 1;
         }
     </style>
 </head>
@@ -135,6 +140,8 @@
     </button>
 
     <div class="result-box" id="result"></div>
+
+    <div class="spacer"></div>
 
     <p class="tips">小tips:<br>做这个抽奖的家伙是个新手，<br>抽奖按钮可以点不止一次!</p>
 
@@ -160,11 +167,21 @@
             result.style.animation = 'fadeIn 0.3s';
         }
 
-        // 初始布局调整
-        window.addEventListener('load', () => {
-            const resultBox = document.querySelector('.result-box');
-            resultBox.style.marginBottom = `${document.querySelector('.couplet').offsetHeight * 0.2}px`;
-        });
+        // 对联高度调整
+        function adjustCouplet() {
+            const couplets = document.querySelectorAll('.couplet');
+            const contentHeight = document.querySelector('.main-title').offsetHeight +
+                                document.querySelector('.description').offsetHeight +
+                                document.querySelector('.lottery-btn').offsetHeight +
+                                document.querySelector('.result-box').offsetHeight + 100;
+
+            couplets.forEach(c => {
+                c.style.height = `${contentHeight}px`;
+            });
+        }
+
+        window.addEventListener('load', adjustCouplet);
+        window.addEventListener('resize', adjustCouplet);
     </script>
 </body>
 </html>
