@@ -237,10 +237,12 @@ function generate() {
         ];
 
         function generate() {
-            const result = document.getElementById('result');
-            result.textContent = prizes[Math.floor(Math.random()*6)];
-            result.style.animation = 'fadeIn 0.3s';
-        }
+    const result = document.getElementById('result');
+    // 替换原来的随机选择方式
+    result.textContent = prizes[currentIndex];  // 修改为按顺序显示
+    currentIndex = (currentIndex + 1) % prizes.length;  // 新增循环逻辑
+    result.style.animation = 'fadeIn 0.3s';
+}
 
         // 对联高度调整
         function adjustCoupletHeight() {
