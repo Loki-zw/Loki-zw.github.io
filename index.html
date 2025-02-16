@@ -221,12 +221,11 @@
             "念念不忘，必有回响",
             "想和美女打场球",
             "希望有天能再见你"
-            "走过漫长时间"
         ];
 
         function generate() {
             const result = document.getElementById('result');
-            result.textContent = prizes[Math.floor(Math.random()*5)];
+            result.textContent = prizes[Math.floor(Math.random()*4)];
             result.style.animation = 'fadeIn 0.3s';
         }
 
