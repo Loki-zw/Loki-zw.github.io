@@ -213,6 +213,7 @@ function generate() {
     currentIndex = (currentIndex + 1) % prizes.length;  // 新增循环逻辑
     result.style.animation = 'fadeIn 0.3s';
 }
+
         // 音乐播放控制
         function playMusic() {
             const music = document.getElementById('music');
@@ -230,14 +231,14 @@ function generate() {
             "听听这首歌吧！",
             "真怀念那段时光...",
             "温暖的阳光草地",
-            "孩童的欢声笑语"
+            "孩童的欢声笑语",
             "希望有天能再见你",
             "顺道问问你有男朋友吗！"
         ];
 
         function generate() {
             const result = document.getElementById('result');
-            result.textContent = prizes[Math.floor(Math.random()*prizes.length)];
+            result.textContent = prizes[Math.floor(Math.random()*6)];
             result.style.animation = 'fadeIn 0.3s';
         }
 
